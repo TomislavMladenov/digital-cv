@@ -6,31 +6,45 @@ on:
     tags:
       - 'v*'
 
+permissions:
+  contents: read  # Required to fetch the repository content
+  pages: write    # Allow deployment to GitHub Pages
+  id-token: write # Required by actions/configure-pages
+
 jobs:
   build_and_deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
     runs-on: ubuntu-latest
     steps:
-      # 1 Setup Java 1.8 environment for the next steps
-      - name: Setup Java
+      # 1. Setup Java 1.8 environment for the next steps
+      - name: "⚙️ Setup Java"
         uses: actions/setup-java@v3
         with:
           distribution: adopt
           java-version: 17
 
-      # 2 Check out current repository
-      - name: Checkout code
-        uses: actions/checkout@v2
+      # 2. Check out current repository
+      - name: "✅ Checkout code"
+        uses: actions/checkout@v4
 
-      # 3 Build application
-      - name: Test and build
-        run: ./gradlew build
+      # 3. Build application
+      - name: "🛠️ Build JS application"
+        run: ./gradlew jsBrowserDistribution
 
-      # If main branch update, deploy to gh-pages
-      - name: Deploy
-        if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
-        uses: JamesIves/github-pages-deploy-action@3.7.1
+      # 4. Set up GitHub Pages
+      - name: "📄 Configure GitHub Pages"
+        uses: actions/configure-pages@v5
+
+      # 5. Upload the built artifact to Pages
+      - name: "📤 Upload GitHub Pages artifact"
+        uses: actions/upload-pages-artifact@v3
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: gh-pages # The branch the action should deploy to.
-          FOLDER: build/distributions # The folder the action should deploy.
-          CLEAN: true # Automatically remove deleted files from the deploy branch
+          path: composeApp/build/dist/js/productionExecutable
+
+      # 6. Deploy to GitHub Pages
+      - name: "🚀 Deploy to GitHub Pages"
+        id: deployment
+        uses: actions/deploy-pages@v4
