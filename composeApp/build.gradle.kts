@@ -51,6 +51,9 @@ kotlin {
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
             implementation(libs.multiplatformSettings)
+
+            implementation(libs.adaptive.layout)
+            implementation(libs.adaptive)
         }
 
         commonTest.dependencies {
