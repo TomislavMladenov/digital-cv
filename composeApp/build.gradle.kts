@@ -36,8 +36,7 @@ kotlin {
             implementation(libs.koin.compose)
             implementation(libs.multiplatformSettings)
 
-            implementation(libs.adaptive.layout)
-            implementation(libs.adaptive)
+            implementation(libs.material3.window.size)
         }
 
         commonTest.dependencies {

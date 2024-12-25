@@ -1,7 +1,7 @@
 [versions]
 
 kotlin = "2.1.0"
-compose = "1.7.1"
+compose = "1.7.3"
 agp = "8.6.1"
 androidx-activityCompose = "1.9.3"
 androidx-uiTest = "1.7.4"
@@ -20,6 +20,7 @@ adaptive = { module = "org.jetbrains.compose.material3.adaptive:adaptive", versi
 adaptive-layout = { module = "org.jetbrains.compose.material3.adaptive:adaptive-layout", version.ref = "adaptive" }
 adaptive-navigation = { module = "org.jetbrains.compose.material3.adaptive:adaptive-navigation", version.ref = "adaptive" }
 
+material3-window-size = { module = "org.jetbrains.compose.material3:material3-window-size-class", version.ref = "compose" }
 androidx-activityCompose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
 androidx-uitest-testManifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "androidx-uiTest" }
 androidx-uitest-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "androidx-uiTest" }
